@@ -26,10 +26,10 @@ usage = opts.help
 
 opts.parse!
 
-# if ARGV.length != 2
-#     puts usage
-#     exit 1
-# __END__
+if ARGV.length != 2
+    puts usage
+    exit 1
+end
 
 origin, target = ARGV
 

@@ -34,9 +34,20 @@ class ArchiveFileUtil
         File.size(@file)
     end
 
-    def copy
+    def create_target_path
         puts "Creating path - #{@target_path}" if @options.verbose
         FileUtils.mkdir_p(@target_path) unless @options.dry_run
+    end
+
+    def move
+        create_target_path
+
+        puts "Moving file - #{@file} => #{@target_file}" if @options.verbose
+        FileUtils.mv(@file, @target_file) unless @options.dry_run
+    end
+
+    def copy
+        create_target_path
 
         puts "Copying file - #{@file} => #{@target_file}" if @options.verbose
         FileUtils.cp(@file, @target_file) unless @options.dry_run
@@ -45,11 +56,6 @@ class ArchiveFileUtil
     def remove
         puts "Removing file - #{@file}" if @options.verbose
         FileUtils.rm(@file) unless @options.dry_run
-    end
-
-    def move
-        copy
-        remove
     end
 
     def add_to_db
